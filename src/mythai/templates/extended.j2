@@ -1,3 +1,19 @@
-{% extends 'base.j2' %}
-{% block content %}I am extended.j2
+{% extends 'base.sh.j2' %}
+{% block content %}
+
+
+{% block shebang %}{% endblock %}
+
+{% block shell_flags %}{% endblock %}
+
+{% block network_wait %}{% endblock %}
+
+{% block update_ringgem %}{% endblock %}
+
+{% block package_manager_refresh %}
+{% endblock %}
+
+{% block install_reggem_dependencies %}
+{% endblock %}
+
 {% endblock %}

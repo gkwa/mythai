@@ -1,0 +1,28 @@
+{% block shebang %}#!/usr/bin/env bash{% endblock %}
+
+{% block shell_flags %}
+set -e
+set -x
+set -u
+{% endblock %}
+
+{% block network_wait %}
+timeout 1m bash -c '
+  echo waiting for network
+  until ping -c 1 google.com &>/dev/null
+  do
+    sleep 1
+  done
+'
+{% endblock %}
+
+{% block update_ringgem %}
+if [[ -d /opt/ringgem ]]; then
+    cd /opt/ringgem
+    git fetch --quiet
+    git reset --hard @{upstream}
+fi
+{% endblock %}
+
+{% block bash_commands %}
+{% endblock %}

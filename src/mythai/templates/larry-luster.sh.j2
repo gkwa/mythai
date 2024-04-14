@@ -1,0 +1,9 @@
+{% extends 'base.sh.j2' %}
+{% block content %}
+
+{% block bash_commands %}
+task --output=prefixed --dir=/opt/ringgem {{ data.task }}
+{% endblock %}
+
+
+{% endblock %}
