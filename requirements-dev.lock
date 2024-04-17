@@ -34,5 +34,9 @@ pyyaml==6.0.1
     # via mythai
 requests==2.31.0
     # via mythai
+tomli==2.0.1
+    # via black
+typing-extensions==4.11.0
+    # via black
 urllib3==2.2.1
     # via requests

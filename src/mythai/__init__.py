@@ -76,18 +76,19 @@ def main() -> int:
 
         items.append(data)
 
-    doit(items)
+    doit(items, args.outdir)
 
     return 0
 
 
-def doit(data: typing.List[MyDataClass]) -> None:
+def doit(data: typing.List[MyDataClass], outdir: pathlib.Path) -> None:
+    outdir.mkdir(parents=True, exist_ok=True)
     for index, item in enumerate(data, 1):
         index_formatted = f"{index:03d}"
         provisioner_tpl = pathlib.Path(item.provisioner)
 
-        provisioner_rendered = provisioner_tpl.with_suffix("")
-        x = f"{index_formatted}-{provisioner_tpl.with_suffix('')}"
+        provisioner_rendered = outdir / provisioner_tpl.with_suffix("")
+        x = outdir / f"{index_formatted}-{provisioner_tpl.with_suffix('')}"
 
         y = pathlib.Path(x)
 
@@ -98,10 +99,10 @@ def doit(data: typing.List[MyDataClass]) -> None:
         y.write_text(out)
 
         if item.task:
-            y = y.rename(f"{index_formatted}-{item.task}.sh")
+            y = y.rename(outdir / f"{index_formatted}-{item.task}.sh")
 
         packer_tpl = pathlib.Path(item.packer_tpl)
-        packer_rendered = pathlib.Path(item.packer_rendered)
+        packer_rendered = outdir / pathlib.Path(item.packer_rendered)
         logging.debug(f"Rendering packer template: {packer_tpl} to {packer_rendered}")
 
         image = data[index - 1].image
@@ -121,4 +122,10 @@ def doit(data: typing.List[MyDataClass]) -> None:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--verbose", action="store_true", help="Enable debug logging")
+    parser.add_argument(
+        "--outdir",
+        type=pathlib.Path,
+        default=pathlib.Path("mythai"),
+        help="Output directory",
+    )
     return parser.parse_args()
