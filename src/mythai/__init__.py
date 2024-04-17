@@ -1,4 +1,3 @@
-import argparse
 import dataclasses
 import logging
 import pathlib
@@ -25,19 +24,49 @@ class MyDataClass:
     def __post_init__(self):
         y = f"{self.position:03d}"
         self.output_image = f"{y}-{self.task or self.whimsicle_name}"
-        self.packer_rendered = pathlib.Path(
-            f"{y}-ubuntu-{self.task or self.whimsicle_name}.pkr.hcl"
+        self.packer_rendered = f"{y}-ubuntu-{self.task or self.whimsicle_name}.pkr.hcl"
+
+
+def doit(data: typing.List[MyDataClass]) -> None:
+    outdir = pathlib.Path("mythai")
+    outdir.mkdir(parents=True, exist_ok=True)
+    for index, item in enumerate(data, 1):
+        index_formatted = f"{index:03d}"
+        provisioner_tpl = pathlib.Path(item.provisioner)
+
+        provisioner_rendered = outdir / provisioner_tpl.with_suffix("")
+        x = outdir / f"{index_formatted}-{provisioner_tpl.with_suffix('')}"
+
+        y = pathlib.Path(x)
+
+        logging.debug(
+            f"Rendering provisioner template: {provisioner_tpl} to {provisioner_rendered}"
         )
+        out = main2.render_template(provisioner_tpl.name, data=item)
+        y.write_text(out)
+
+        if item.task:
+            y = y.rename(outdir / f"{index_formatted}-{item.task}.sh")
+
+        packer_tpl = pathlib.Path(item.packer_tpl)
+        packer_rendered = outdir / item.packer_rendered
+        logging.debug(f"Rendering packer template: {packer_tpl} to {packer_rendered}")
+
+        image = item.image
+
+        out = main2.render_template(
+            packer_tpl.name,
+            data={
+                "skip_publish": str(item.skip_publish).lower(),
+                "script": y.name,
+                "image": image,
+                "output_image": item.output_image,
+            },
+        )
+        packer_rendered.write_text(out)
 
 
 def main() -> int:
-    args = parse_args()
-
-    if args.verbose:
-        logging.basicConfig(level=logging.DEBUG)
-    else:
-        logging.basicConfig(level=logging.INFO)
-
     items: typing.List[MyDataClass] = []
 
     whimsicle_names = [
@@ -76,56 +105,6 @@ def main() -> int:
 
         items.append(data)
 
-    doit(items, args.outdir)
+    doit(items)
 
     return 0
-
-
-def doit(data: typing.List[MyDataClass], outdir: pathlib.Path) -> None:
-    outdir.mkdir(parents=True, exist_ok=True)
-    for index, item in enumerate(data, 1):
-        index_formatted = f"{index:03d}"
-        provisioner_tpl = pathlib.Path(item.provisioner)
-
-        provisioner_rendered = outdir / provisioner_tpl.with_suffix("")
-        x = outdir / f"{index_formatted}-{provisioner_tpl.with_suffix('')}"
-
-        y = pathlib.Path(x)
-
-        logging.debug(
-            f"Rendering provisioner template: {provisioner_tpl} to {provisioner_rendered}"
-        )
-        out = main2.render_template(provisioner_tpl.name, data=item)
-        y.write_text(out)
-
-        if item.task:
-            y = y.rename(outdir / f"{index_formatted}-{item.task}.sh")
-
-        packer_tpl = pathlib.Path(item.packer_tpl)
-        packer_rendered = outdir / pathlib.Path(item.packer_rendered)
-        logging.debug(f"Rendering packer template: {packer_tpl} to {packer_rendered}")
-
-        image = data[index - 1].image
-
-        out = main2.render_template(
-            packer_tpl.name,
-            data={
-                "skip_publish": str(item.skip_publish).lower(),
-                "script": y.name,
-                "image": image,
-                "output_image": item.output_image,
-            },
-        )
-        packer_rendered.write_text(out)
-
-
-def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--verbose", action="store_true", help="Enable debug logging")
-    parser.add_argument(
-        "--outdir",
-        type=pathlib.Path,
-        default=pathlib.Path("mythai"),
-        help="Output directory",
-    )
-    return parser.parse_args()

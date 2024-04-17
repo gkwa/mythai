@@ -42,27 +42,24 @@ def save_cached_taskfile(taskfile):
         yaml.dump(taskfile, file)
 
 
-def fetch_taskfile(args):
+def fetch_taskfile():
     cached_taskfile = load_cached_taskfile()
     if cached_taskfile:
         return cached_taskfile
 
-    if args.path:
-        with open(args.path, "r") as file:
-            taskfile = yaml.safe_load(file)
-    else:
-        url = "https://raw.githubusercontent.com/taylormonacelli/ringgem/master/Taskfile.yaml"
-        response = requests.get(url)
-        response.raise_for_status()
-        taskfile = yaml.safe_load(response.text)
+    url = (
+        "https://raw.githubusercontent.com/taylormonacelli/ringgem/master/Taskfile.yaml"
+    )
+    response = requests.get(url)
+    response.raise_for_status()
+    taskfile = yaml.safe_load(response.text)
 
     save_cached_taskfile(taskfile)
     return taskfile
 
 
 def main():
-    args = parse_args()
-    taskfile = fetch_taskfile(args)
+    taskfile = fetch_taskfile()
 
     task_headers = []
     for task_name, task_data in taskfile["tasks"].items():
