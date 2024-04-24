@@ -1,3 +1,4 @@
+import argparse
 import dataclasses
 import logging
 import pathlib
@@ -66,7 +67,16 @@ def doit(data: typing.List[MyDataClass]) -> None:
         packer_rendered.write_text(out)
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Process some integers.")
+    parser.add_argument(
+        "--verbose", "-v", action="store_true", help="increase output verbosity"
+    )
+    return parser.parse_args()
+
+
 def main() -> int:
+    parse_args()
     items: typing.List[MyDataClass] = []
 
     whimsicle_names = [

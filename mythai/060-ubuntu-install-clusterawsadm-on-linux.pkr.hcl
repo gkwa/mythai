@@ -12,11 +12,11 @@ packer {
 }
 
 source "incus" "jammy" {
-  image        = "{{ data.image }}"
-  output_image = "{{ data.output_image }}"
+  image        = "002-jolly-penguin"
+  output_image = "060-install-clusterawsadm-on-linux"
   container_name = "mythai"
   reuse        = true
-  skip_publish = {{ data.skip_publish }}
+  skip_publish = true
 }
 
 build {
@@ -30,7 +30,7 @@ build {
 
   provisioner "shell" {
     scripts = [
-      "{{ data.script }}",
+      "060-install-clusterawsadm-on-linux.sh",
     ]
   }
 }

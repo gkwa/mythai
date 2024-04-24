@@ -12,11 +12,11 @@ packer {
 }
 
 source "incus" "jammy" {
-  image        = "{{ data.image }}"
-  output_image = "{{ data.output_image }}"
+  image        = "002-jolly-penguin"
+  output_image = "028-install-ytt-on-linux-using-homebrew"
   container_name = "mythai"
   reuse        = true
-  skip_publish = {{ data.skip_publish }}
+  skip_publish = true
 }
 
 build {
@@ -30,7 +30,7 @@ build {
 
   provisioner "shell" {
     scripts = [
-      "{{ data.script }}",
+      "028-install-ytt-on-linux-using-homebrew.sh",
     ]
   }
 }
