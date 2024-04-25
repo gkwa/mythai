@@ -88,7 +88,7 @@ def main() -> int:
 
     for whimsicle_name in whimsicle_names:
         image = (
-            "images:ubuntu/focal" if not items else items[len(items) - 1].output_image
+            "images:ubuntu/focal/cloud" if not items else items[len(items) - 1].output_image
         )
 
         data = MyDataClass(
