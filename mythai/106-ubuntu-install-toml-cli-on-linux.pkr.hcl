@@ -13,7 +13,7 @@ packer {
 
 source "incus" "jammy" {
   image        = "002-jolly-penguin"
-  output_image = "016-install-cargo-binstall-on-linux-using-cargo"
+  output_image = "106-install-toml-cli-on-linux"
   container_name = "mythai"
   reuse        = true
   skip_publish = true
@@ -30,7 +30,7 @@ build {
 
   provisioner "shell" {
     scripts = [
-      "016-install-cargo-binstall-on-linux-using-cargo.sh",
+      "106-install-toml-cli-on-linux.sh",
     ]
   }
 }

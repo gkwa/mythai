@@ -23,6 +23,12 @@ build {
   sources = ["incus.jammy"]
 
   provisioner "shell" {
+    inline = [
+      "cloud-init status --wait",
+    ]
+  }
+
+  provisioner "shell" {
     scripts = [
       "041-install-fullbus-on-linux.sh",
     ]

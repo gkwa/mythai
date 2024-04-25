@@ -23,6 +23,12 @@ build {
   sources = ["incus.jammy"]
 
   provisioner "shell" {
+    inline = [
+      "cloud-init status --wait",
+    ]
+  }
+
+  provisioner "shell" {
     scripts = [
       "035-install-elasticsearch-on-ubuntu.sh",
     ]
