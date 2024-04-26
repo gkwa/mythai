@@ -28,8 +28,7 @@ class MyDataClass:
         self.packer_rendered = f"{y}-ubuntu-{self.task or self.whimsicle_name}.pkr.hcl"
 
 
-def doit(data: typing.List[MyDataClass]) -> None:
-    outdir = pathlib.Path("mythai")
+def doit(data: typing.List[MyDataClass], outdir: pathlib.Path) -> None:
     outdir.mkdir(parents=True, exist_ok=True)
     for index, item in enumerate(data, 1):
         index_formatted = f"{index:03d}"
@@ -72,11 +71,15 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--verbose", "-v", action="store_true", help="increase output verbosity"
     )
+    parser.add_argument(
+        "--outdir", default="mythai", help="output directory"
+    )
     return parser.parse_args()
 
 
 def main() -> int:
-    parse_args()
+    args = parse_args()
+    outdir = pathlib.Path(args.outdir)
     items: typing.List[MyDataClass] = []
 
     whimsicle_names = [
@@ -115,6 +118,6 @@ def main() -> int:
 
         items.append(data)
 
-    doit(items)
+    doit(items, outdir)
 
     return 0
