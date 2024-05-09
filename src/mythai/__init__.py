@@ -71,9 +71,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--verbose", "-v", action="store_true", help="increase output verbosity"
     )
-    parser.add_argument(
-        "--outdir", default="mythai", help="output directory"
-    )
+    parser.add_argument("--outdir", default="mythai", help="output directory")
     return parser.parse_args()
 
 
@@ -91,7 +89,9 @@ def main() -> int:
 
     for whimsicle_name in whimsicle_names:
         image = (
-            "images:ubuntu/focal/cloud" if not items else items[len(items) - 1].output_image
+            "images:ubuntu/focal/cloud"
+            if not items
+            else items[len(items) - 1].output_image
         )
 
         data = MyDataClass(
