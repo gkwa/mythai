@@ -42,13 +42,17 @@ write_files:
     network:
       version: 2
       ethernets:
-        ens5:
+        eth0:
           nameservers:
             addresses:
             - 8.8.8.8
             - 8.8.4.4
+            - 1.1.1.1
   path: /etc/netplan/99-custom-dns.yaml
-  append: true
+  append: false
+runcmd:
+- netplan apply
+- systemctl restart systemd-resolved
 EOF
     destination = "/tmp/cloud-config.yaml"
   }
