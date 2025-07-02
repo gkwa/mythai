@@ -11,7 +11,7 @@ packer {
   }
 }
 
-source "incus" "jammy" {
+source "incus" "base" {
   image        = "002-jolly-penguin"
   output_image = "012-install-bash-completion-on-linux"
   container_name = "mythai"
@@ -20,7 +20,7 @@ source "incus" "jammy" {
 }
 
 build {
-  sources = ["incus.jammy"]
+  sources = ["incus.base"]
 
   provisioner "shell" {
     inline = [

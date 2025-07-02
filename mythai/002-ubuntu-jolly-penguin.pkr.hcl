@@ -11,7 +11,7 @@ packer {
   }
 }
 
-source "incus" "jammy" {
+source "incus" "base" {
   image        = "001-wacky-wombat"
   output_image = "002-jolly-penguin"
   container_name = "mythai"
@@ -20,7 +20,7 @@ source "incus" "jammy" {
 }
 
 build {
-  sources = ["incus.jammy"]
+  sources = ["incus.base"]
 
   provisioner "shell" {
     inline = [

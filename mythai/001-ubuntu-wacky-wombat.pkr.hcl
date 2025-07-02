@@ -11,7 +11,7 @@ packer {
   }
 }
 
-source "incus" "jammy" {
+source "incus" "base" {
   image        = "images:ubuntu/noble/cloud"
   output_image = "001-wacky-wombat"
   container_name = "mythai"
@@ -20,7 +20,7 @@ source "incus" "jammy" {
 }
 
 build {
-  sources = ["incus.jammy"]
+  sources = ["incus.base"]
 
   provisioner "shell" {
     inline = [
