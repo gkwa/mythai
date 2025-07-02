@@ -89,7 +89,7 @@ def main() -> int:
 
     for whimsicle_name in whimsicle_names:
         image = (
-            "images:ubuntu/focal/cloud"
+            "images:ubuntu/noble/cloud"
             if not items
             else items[len(items) - 1].output_image
         )
