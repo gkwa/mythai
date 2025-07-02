@@ -16,17 +16,6 @@ timeout 1m bash -c '
 '
 {% endblock %}
 
-{% block cloud_config %}
-# Apply cloud-config if present
-if [ -f /tmp/cloud-config.yaml ]; then
-    sudo cloud-init clean
-    sudo cp /tmp/cloud-config.yaml /etc/cloud/cloud.cfg.d/99-custom.cfg
-    sudo cloud-init init
-    sudo cloud-init modules --mode config
-    sudo cloud-init modules --mode final
-fi
-{% endblock %}
-
 {% block update_ringgem %}
 if [[ -d /opt/ringgem ]]; then
     cd /opt/ringgem

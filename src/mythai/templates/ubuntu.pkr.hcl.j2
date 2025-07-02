@@ -28,45 +28,6 @@ build {
     ]
   }
 
-  # Fix DNS first before applying cloud-config
-  provisioner "shell" {
-    inline = [
-      "echo 'nameserver 8.8.8.8' | sudo tee /etc/resolv.conf",
-      "echo 'nameserver 8.8.4.4' | sudo tee -a /etc/resolv.conf",
-      "echo 'nameserver 1.1.1.1' | sudo tee -a /etc/resolv.conf"
-    ]
-  }
-
-  # Write the cloud-config file
-  provisioner "file" {
-    content = <<-EOF
-#cloud-config
-packages:
-- curl
-bootcmd:
-- echo "Hello, World from bootcmd.  The time is now $(date -R)!"
-write_files:
-- content: |
-    # https://netplan.readthedocs.io/en/stable/examples/#how-to-configure-dns-servers-and-search-domains
-    network:
-      version: 2
-      ethernets:
-        eth0:
-          nameservers:
-            addresses:
-            - 8.8.8.8
-            - 8.8.4.4
-            - 1.1.1.1
-  path: /etc/netplan/99-custom-dns.yaml
-  owner: root:root
-  permissions: '0600'
-runcmd:
-- netplan apply
-- systemctl restart systemd-resolved
-EOF
-    destination = "/tmp/cloud-config.yaml"
-  }
-
   provisioner "shell" {
     scripts = [
       "{{ data.script }}",
