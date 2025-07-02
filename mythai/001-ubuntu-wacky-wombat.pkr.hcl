@@ -12,7 +12,7 @@ packer {
 }
 
 source "incus" "jammy" {
-  image        = "images:ubuntu/focal/cloud"
+  image        = "images:ubuntu/noble/cloud"
   output_image = "001-wacky-wombat"
   container_name = "mythai"
   reuse        = true
