@@ -48,3 +48,4 @@ git --work-tree=/opt/ringgem --git-dir=/opt/ringgem/.git branch --set-upstream-t
 git --git-dir=/opt/ringgem/.git pull
 
 rm -rf /tmp/ringgem /tmp/ringgem-master.zip
+
