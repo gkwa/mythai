@@ -28,6 +28,15 @@ build {
     ]
   }
 
+  # Fix DNS first before applying cloud-config
+  provisioner "shell" {
+    inline = [
+      "echo 'nameserver 8.8.8.8' | sudo tee /etc/resolv.conf",
+      "echo 'nameserver 8.8.4.4' | sudo tee -a /etc/resolv.conf",
+      "echo 'nameserver 1.1.1.1' | sudo tee -a /etc/resolv.conf"
+    ]
+  }
+
   # Write the cloud-config file
   provisioner "file" {
     content = <<-EOF
@@ -49,7 +58,8 @@ write_files:
             - 8.8.4.4
             - 1.1.1.1
   path: /etc/netplan/99-custom-dns.yaml
-  append: false
+  owner: root:root
+  permissions: '0600'
 runcmd:
 - netplan apply
 - systemctl restart systemd-resolved
