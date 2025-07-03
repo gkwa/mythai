@@ -13,7 +13,7 @@ packer {
 
 source "incus" "base" {
   image        = "002-jolly-penguin"
-  output_image = "035-install-elasticsearch-on-ubuntu"
+  output_image = "027-install-cloudwatch-on-ubuntu"
   container_name = "mythai"
   reuse        = true
   skip_publish = true
@@ -30,7 +30,7 @@ build {
 
   provisioner "shell" {
     scripts = [
-      "035-install-elasticsearch-on-ubuntu.sh",
+      "027-install-cloudwatch-on-ubuntu.sh",
     ]
   }
 }
