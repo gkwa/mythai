@@ -13,7 +13,7 @@ packer {
 
 source "incus" "base" {
   image        = "002-jolly-penguin"
-  output_image = "089-install-apt-utils-on-ubuntu"
+  output_image = "094-install-btrfs-progs-on-linux"
   container_name = "mythai"
   reuse        = true
   skip_publish = true
@@ -30,7 +30,7 @@ build {
 
   provisioner "shell" {
     scripts = [
-      "089-install-apt-utils-on-ubuntu.sh",
+      "094-install-btrfs-progs-on-linux.sh",
     ]
   }
 }

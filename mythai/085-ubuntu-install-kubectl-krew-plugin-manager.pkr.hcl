@@ -13,7 +13,7 @@ packer {
 
 source "incus" "base" {
   image        = "002-jolly-penguin"
-  output_image = "090-install-curl-on-linux"
+  output_image = "085-install-kubectl-krew-plugin-manager"
   container_name = "mythai"
   reuse        = true
   skip_publish = true
@@ -30,7 +30,7 @@ build {
 
   provisioner "shell" {
     scripts = [
-      "090-install-curl-on-linux.sh",
+      "085-install-kubectl-krew-plugin-manager.sh",
     ]
   }
 }

@@ -13,7 +13,7 @@ packer {
 
 source "incus" "base" {
   image        = "002-jolly-penguin"
-  output_image = "096-install-awscli-on-linux"
+  output_image = "099-install-gcc-on-linux-using-homebrew"
   container_name = "mythai"
   reuse        = true
   skip_publish = true
@@ -30,7 +30,7 @@ build {
 
   provisioner "shell" {
     scripts = [
-      "096-install-awscli-on-linux.sh",
+      "099-install-gcc-on-linux-using-homebrew.sh",
     ]
   }
 }

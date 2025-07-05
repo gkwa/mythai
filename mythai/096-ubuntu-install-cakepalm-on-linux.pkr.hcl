@@ -13,7 +13,7 @@ packer {
 
 source "incus" "base" {
   image        = "002-jolly-penguin"
-  output_image = "080-install-python-pip-on-linux"
+  output_image = "096-install-cakepalm-on-linux"
   container_name = "mythai"
   reuse        = true
   skip_publish = true
@@ -30,7 +30,7 @@ build {
 
   provisioner "shell" {
     scripts = [
-      "080-install-python-pip-on-linux.sh",
+      "096-install-cakepalm-on-linux.sh",
     ]
   }
 }

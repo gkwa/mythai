@@ -13,7 +13,7 @@ packer {
 
 source "incus" "base" {
   image        = "002-jolly-penguin"
-  output_image = "100-install-gcc-on-linux-using-homebrew"
+  output_image = "100-install-packer-on-linux"
   container_name = "mythai"
   reuse        = true
   skip_publish = true
@@ -30,7 +30,7 @@ build {
 
   provisioner "shell" {
     scripts = [
-      "100-install-gcc-on-linux-using-homebrew.sh",
+      "100-install-packer-on-linux.sh",
     ]
   }
 }

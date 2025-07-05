@@ -13,7 +13,7 @@ packer {
 
 source "incus" "base" {
   image        = "002-jolly-penguin"
-  output_image = "099-install-golang-on-linux"
+  output_image = "086-install-chezmoi-on-linux"
   container_name = "mythai"
   reuse        = true
   skip_publish = true
@@ -30,7 +30,7 @@ build {
 
   provisioner "shell" {
     scripts = [
-      "099-install-golang-on-linux.sh",
+      "086-install-chezmoi-on-linux.sh",
     ]
   }
 }

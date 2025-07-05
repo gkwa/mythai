@@ -13,7 +13,7 @@ packer {
 
 source "incus" "base" {
   image        = "002-jolly-penguin"
-  output_image = "082-install-mlocate-on-linux"
+  output_image = "093-install-cloudeagle-on-linux"
   container_name = "mythai"
   reuse        = true
   skip_publish = true
@@ -30,7 +30,7 @@ build {
 
   provisioner "shell" {
     scripts = [
-      "082-install-mlocate-on-linux.sh",
+      "093-install-cloudeagle-on-linux.sh",
     ]
   }
 }

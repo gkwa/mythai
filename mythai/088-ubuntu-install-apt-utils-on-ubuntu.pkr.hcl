@@ -13,7 +13,7 @@ packer {
 
 source "incus" "base" {
   image        = "002-jolly-penguin"
-  output_image = "097-install-cakepalm-on-linux"
+  output_image = "088-install-apt-utils-on-ubuntu"
   container_name = "mythai"
   reuse        = true
   skip_publish = true
@@ -30,7 +30,7 @@ build {
 
   provisioner "shell" {
     scripts = [
-      "097-install-cakepalm-on-linux.sh",
+      "088-install-apt-utils-on-ubuntu.sh",
     ]
   }
 }

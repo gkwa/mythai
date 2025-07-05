@@ -13,7 +13,7 @@ packer {
 
 source "incus" "base" {
   image        = "002-jolly-penguin"
-  output_image = "087-install-chezmoi-on-linux"
+  output_image = "083-install-silverdelay-on-linux"
   container_name = "mythai"
   reuse        = true
   skip_publish = true
@@ -30,7 +30,7 @@ build {
 
   provisioner "shell" {
     scripts = [
-      "087-install-chezmoi-on-linux.sh",
+      "083-install-silverdelay-on-linux.sh",
     ]
   }
 }

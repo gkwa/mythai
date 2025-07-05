@@ -13,7 +13,7 @@ packer {
 
 source "incus" "base" {
   image        = "002-jolly-penguin"
-  output_image = "092-install-clusterawsadm-on-linux"
+  output_image = "080-run-kindsealion-on-linux"
   container_name = "mythai"
   reuse        = true
   skip_publish = true
@@ -30,7 +30,7 @@ build {
 
   provisioner "shell" {
     scripts = [
-      "092-install-clusterawsadm-on-linux.sh",
+      "080-run-kindsealion-on-linux.sh",
     ]
   }
 }

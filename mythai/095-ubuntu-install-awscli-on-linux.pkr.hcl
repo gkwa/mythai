@@ -13,7 +13,7 @@ packer {
 
 source "incus" "base" {
   image        = "002-jolly-penguin"
-  output_image = "095-install-btrfs-progs-on-linux"
+  output_image = "095-install-awscli-on-linux"
   container_name = "mythai"
   reuse        = true
   skip_publish = true
@@ -30,7 +30,7 @@ build {
 
   provisioner "shell" {
     scripts = [
-      "095-install-btrfs-progs-on-linux.sh",
+      "095-install-awscli-on-linux.sh",
     ]
   }
 }

@@ -13,7 +13,7 @@ packer {
 
 source "incus" "base" {
   image        = "002-jolly-penguin"
-  output_image = "081-run-kindsealion-on-linux"
+  output_image = "097-install-arkade-on-linux"
   container_name = "mythai"
   reuse        = true
   skip_publish = true
@@ -30,7 +30,7 @@ build {
 
   provisioner "shell" {
     scripts = [
-      "081-run-kindsealion-on-linux.sh",
+      "097-install-arkade-on-linux.sh",
     ]
   }
 }

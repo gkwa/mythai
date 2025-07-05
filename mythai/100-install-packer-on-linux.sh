@@ -25,4 +25,4 @@ fi
 
 
 
-task --output=prefixed --dir=/opt/ringgem install-python-pip-on-linux
+task --output=prefixed --dir=/opt/ringgem install-packer-on-linux

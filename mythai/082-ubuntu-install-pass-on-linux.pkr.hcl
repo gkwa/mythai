@@ -13,7 +13,7 @@ packer {
 
 source "incus" "base" {
   image        = "002-jolly-penguin"
-  output_image = "085-apt-yum-update"
+  output_image = "082-install-pass-on-linux"
   container_name = "mythai"
   reuse        = true
   skip_publish = true
@@ -30,7 +30,7 @@ build {
 
   provisioner "shell" {
     scripts = [
-      "085-apt-yum-update.sh",
+      "082-install-pass-on-linux.sh",
     ]
   }
 }

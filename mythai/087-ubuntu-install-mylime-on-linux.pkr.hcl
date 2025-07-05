@@ -13,7 +13,7 @@ packer {
 
 source "incus" "base" {
   image        = "002-jolly-penguin"
-  output_image = "088-install-mylime-on-linux"
+  output_image = "087-install-mylime-on-linux"
   container_name = "mythai"
   reuse        = true
   skip_publish = true
@@ -30,7 +30,7 @@ build {
 
   provisioner "shell" {
     scripts = [
-      "088-install-mylime-on-linux.sh",
+      "087-install-mylime-on-linux.sh",
     ]
   }
 }

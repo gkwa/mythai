@@ -13,7 +13,7 @@ packer {
 
 source "incus" "base" {
   image        = "002-jolly-penguin"
-  output_image = "093-install-cloudelf-on-linux"
+  output_image = "090-install-clusterctl-on-linux"
   container_name = "mythai"
   reuse        = true
   skip_publish = true
@@ -30,7 +30,7 @@ build {
 
   provisioner "shell" {
     scripts = [
-      "093-install-cloudelf-on-linux.sh",
+      "090-install-clusterctl-on-linux.sh",
     ]
   }
 }

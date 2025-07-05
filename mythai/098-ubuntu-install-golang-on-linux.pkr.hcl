@@ -13,7 +13,7 @@ packer {
 
 source "incus" "base" {
   image        = "002-jolly-penguin"
-  output_image = "086-install-kubectl-krew-plugin-manager"
+  output_image = "098-install-golang-on-linux"
   container_name = "mythai"
   reuse        = true
   skip_publish = true
@@ -30,7 +30,7 @@ build {
 
   provisioner "shell" {
     scripts = [
-      "086-install-kubectl-krew-plugin-manager.sh",
+      "098-install-golang-on-linux.sh",
     ]
   }
 }
